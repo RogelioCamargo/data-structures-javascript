@@ -1,2 +1,2 @@
 # Data Structures
-## Implmenations in JavaScript
+## Implmenations in TypeScript
