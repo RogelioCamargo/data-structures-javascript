@@ -13,28 +13,42 @@ class LinkedListNode<T> {
 }
 
 class LinkedList<T> {
-	head: null | LinkedListNode<T>;
-	tail: null | LinkedListNode<T>;
-	size: number;
+	private _head: null | LinkedListNode<T>;
+	private _tail: null | LinkedListNode<T>;
+	public size: number;
 
 	constructor() {
-		this.head = null;
-		this.tail = null;
+		this._head = null;
+		this._tail = null;
 		this.size = 0;
 	}
 
+	public clear(): void {
+		this._head = null;
+		this._tail = null;
+		this.size = 0;
+	}
+
+	public getHead(): LinkedListNode<T> | null {
+		return this._head;
+	}
+
+	public getTail(): LinkedListNode<T> | null {
+		return this._tail;
+	}
+
 	public isEmpty(): boolean {
-		return !this.head && !this.tail;
+		return !this._head && !this._tail;
 	}
 
 	public unshift(element: T): void {
 		const newElement: LinkedListNode<T> = new LinkedListNode(element);
 		if (this.isEmpty()) {
-			this.head = newElement;
-			this.tail = newElement;
+			this._head = newElement;
+			this._tail = newElement;
 		} else {
-			const oldHead = this.head;
-			this.head = newElement;
+			const oldHead = this._head;
+			this._head = newElement;
 			newElement.next = oldHead;
 		}
 
@@ -44,25 +58,24 @@ class LinkedList<T> {
 	public push(element: T): void {
 		const newElement: LinkedListNode<T> = new LinkedListNode(element);
 		if (this.isEmpty()) {
-			this.head = newElement;
-			this.tail = newElement;
+			this._head = newElement;
+			this._tail = newElement;
 		} else {
-			if (this.tail) this.tail.next = newElement;
-			this.tail = newElement;
+			if (this._tail) this._tail.next = newElement;
+			this._tail = newElement;
 		}
 		this.size++;
 	}
 
-	public shift(element: T): LinkedListNode<T> | null {
-		if (this.isEmpty()) return null; 
+	public shift(): LinkedListNode<T> | null {
+		if (this.isEmpty()) return null;
 
-		const removedNode = this.head; 
-		if (this.head && !this.head.next) {
-			this.head = null; 
-			this.tail = null; 
+		const removedNode = this._head;
+		if (this._head && !this._head.next) {
+			this._head = null;
+			this._tail = null;
 		} else {
-			if (removedNode) removedNode.next = null; 
-			if (this.head) this.head = this.head.next;
+			if (this._head) this._head = this._head.next;
 		}
 
 		this.size--;
@@ -72,20 +85,22 @@ class LinkedList<T> {
 	public pop(): LinkedListNode<T> | null {
 		if (this.isEmpty()) return null;
 
-		const removedNode = this.tail;
-		if (this.head && !this.head.next) {
-			this.head = null;
-			this.tail = null;
+		let removedNode = this._tail;
+		if (this._head && !this._head.next) {
+			this._head = null;
+			this._tail = null;
 		} else {
-			let currentNode = this.head;
+			let currentNode = this._head;
 			while (currentNode && currentNode.next && currentNode.next.next)
 				currentNode = currentNode.next;
 
 			if (currentNode) currentNode.next = null;
-			this.tail = currentNode;
+			this._tail = currentNode;
 		}
 
 		this.size--;
 		return removedNode;
 	}
 }
+
+module.exports = LinkedList;
