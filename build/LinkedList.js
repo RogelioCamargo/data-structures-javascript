@@ -45,11 +45,7 @@ class LinkedList {
         if (position < 0 || position > this.size)
             throw Error(`Position must be range [0, ${this.size}]`);
         const newNode = new LinkedListNode(element);
-        if (this.isEmpty()) {
-            this._head = newNode;
-            this._tail = newNode;
-        }
-        else if (position === 0)
+        if (position === 0)
             return this.unshift(element);
         else if (position === this.size)
             return this.push(element);

@@ -61,10 +61,7 @@ class LinkedList<T> {
 
 		const newNode: LinkedListNode<T> = new LinkedListNode(element);
 
-		if (this.isEmpty()) {
-			this._head = newNode;
-			this._tail = newNode;
-		} else if (position === 0) return this.unshift(element);
+		if (position === 0) return this.unshift(element);
 		else if (position === this.size) return this.push(element);
 		else {
 			let previousNode = this._head;
