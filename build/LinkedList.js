@@ -136,6 +136,17 @@ class LinkedList {
         this.size--;
         return removedNode;
     }
+    search(element) {
+        if (this.isEmpty())
+            return null;
+        let currentNode = this._head;
+        while (currentNode) {
+            if (currentNode.element === element)
+                return currentNode;
+            currentNode = currentNode.next;
+        }
+        return null;
+    }
     toArray() {
         const array = [];
         let currentNode = this._head;

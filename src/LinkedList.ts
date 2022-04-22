@@ -155,6 +155,18 @@ class LinkedList<T> {
 		return removedNode;
 	}
 
+	public search(element: T): LinkedListNode<T> | null {
+		if (this.isEmpty()) return null;
+
+		let currentNode = this._head;
+		while (currentNode) {
+			if (currentNode.element === element) return currentNode;
+			currentNode = currentNode.next;
+		}
+
+		return null;
+	}
+
 	public toArray(): Array<T> {
 		const array: Array<T> = [];
 		let currentNode = this._head;

@@ -91,6 +91,26 @@ describe("LinkedList", () => {
 		});
 	});
 
+	describe("search node", () => {
+		test("#search", () => {
+			const list = new LinkedList();
+			list.push(1);
+			list.push(2);
+			list.push(3);
+			list.push(4);
+
+			let result;
+			result = list.search(2);
+			expect(result.element).toBe(2);
+			result = list.search(4);
+			expect(result.element).toBe(4);
+			result = list.search(5);
+			expect(result).toBeNull();
+
+			list.clear();
+		});
+	});
+
 	describe("remove node", () => {
 		test("#shift", () => {
 			const list = new LinkedList();
@@ -123,25 +143,27 @@ describe("LinkedList", () => {
 			list.push(3);
 			list.push(4);
 			// 1 -> 2 -> 3 -> 4 -> NULL
-			
-			let removedNode; 
-			removedNode = list.removeAt(2); 
+
+			let removedNode;
+			removedNode = list.removeAt(2);
 			// 1 -> 2 -> 4 -> NULL
-			expect(list.size).toBe(3)
+			expect(list.size).toBe(3);
 			expect(removedNode.element).toBe(3);
 			expect(list.toArray()).toEqual([1, 2, 4]);
 
-			removedNode = list.removeAt(1); 
+			removedNode = list.removeAt(1);
 			// 1 -> 4 -> NULL
-			expect(list.size).toBe(2)
+			expect(list.size).toBe(2);
 			expect(removedNode.element).toBe(2);
 			expect(list.toArray()).toEqual([1, 4]);
 
-			removedNode = list.removeAt(1)
-			// 1 -> NULL 
-			expect(list.size).toBe(1)
+			removedNode = list.removeAt(1);
+			// 1 -> NULL
+			expect(list.size).toBe(1);
 			expect(removedNode.element).toBe(4);
 			expect(list.toArray()).toEqual([1]);
+
+			list.clear();
 		});
 
 		test("#pop", () => {
