@@ -55,7 +55,7 @@ class LinkedList<T> {
 		this.size++;
 	}
 
-	public insert(element: T, position: number): void {
+	public insertAt(element: T, position: number): void {
 		if (position < 0 || position > this.size)
 			throw Error(`Position must be range [0, ${this.size}]`);
 
@@ -81,6 +81,31 @@ class LinkedList<T> {
 		}
 
 		this.size++;
+	}
+
+	public removeAt(position: number): LinkedListNode<T> | null {
+		if (position < 0 || position >= this.size)
+			throw Error(`Position must be range [0, ${this.size - 1}]`);
+
+		let removedNode = null;
+		if (position === 0) return this.shift();
+		else if (position == this.size - 1) return this.pop();
+		else {
+			let currentPosition = 1;
+			let previousNode = this._head;
+			while (previousNode && currentPosition < position) {
+				previousNode = previousNode.next;
+				currentPosition++;
+			}
+
+			if (previousNode && previousNode.next) {
+				removedNode = previousNode.next;
+				previousNode.next = previousNode.next.next;
+			}
+		}
+
+		this.size--;
+		return removedNode;
 	}
 
 	public push(element: T): void {
@@ -131,11 +156,11 @@ class LinkedList<T> {
 	}
 
 	public toArray(): Array<T> {
-		const array: Array<T> = []; 
-		let currentNode = this._head; 
+		const array: Array<T> = [];
+		let currentNode = this._head;
 		while (currentNode) {
 			array.push(currentNode.element);
-			currentNode = currentNode.next; 
+			currentNode = currentNode.next;
 		}
 		return array;
 	}

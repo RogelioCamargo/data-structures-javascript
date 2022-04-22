@@ -41,7 +41,7 @@ class LinkedList {
         }
         this.size++;
     }
-    insert(element, position) {
+    insertAt(element, position) {
         if (position < 0 || position > this.size)
             throw Error(`Position must be range [0, ${this.size}]`);
         const newNode = new LinkedListNode(element);
@@ -65,6 +65,29 @@ class LinkedList {
             }
         }
         this.size++;
+    }
+    removeAt(position) {
+        if (position < 0 || position >= this.size)
+            throw Error(`Position must be range [0, ${this.size - 1}]`);
+        let removedNode = null;
+        if (position === 0)
+            return this.shift();
+        else if (position == this.size - 1)
+            return this.pop();
+        else {
+            let currentPosition = 1;
+            let previousNode = this._head;
+            while (previousNode && currentPosition < position) {
+                previousNode = previousNode.next;
+                currentPosition++;
+            }
+            if (previousNode && previousNode.next) {
+                removedNode = previousNode.next;
+                previousNode.next = previousNode.next.next;
+            }
+        }
+        this.size--;
+        return removedNode;
     }
     push(element) {
         const newNode = new LinkedListNode(element);
