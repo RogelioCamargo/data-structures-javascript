@@ -42,27 +42,58 @@ class LinkedList<T> {
 	}
 
 	public unshift(element: T): void {
-		const newElement: LinkedListNode<T> = new LinkedListNode(element);
+		const newNode: LinkedListNode<T> = new LinkedListNode(element);
 		if (this.isEmpty()) {
-			this._head = newElement;
-			this._tail = newElement;
+			this._head = newNode;
+			this._tail = newNode;
 		} else {
 			const oldHead = this._head;
-			this._head = newElement;
-			newElement.next = oldHead;
+			this._head = newNode;
+			newNode.next = oldHead;
+		}
+
+		this.size++;
+	}
+
+	public insert(element: T, position: number): void {
+		if (position < 0 || position > this.size)
+			throw Error(`Position must be range [0, ${this.size}]`);
+
+		const newNode: LinkedListNode<T> = new LinkedListNode(element);
+
+		if (this.isEmpty()) {
+			this._head = newNode;
+			this._tail = newNode;
+		} else if (position === 0) return this.unshift(element);
+		else if (position === this.size) return this.push(element);
+		else {
+			let previousNode = this._head;
+			let currentPosition = 1;
+			while (previousNode && currentPosition < position) {
+				previousNode = previousNode.next;
+				currentPosition++;
+			}
+
+			if (previousNode) {
+				const nextNode = previousNode.next;
+				previousNode.next = newNode;
+				newNode.next = nextNode;
+
+				if (!newNode.next) this._tail = newNode;
+			}
 		}
 
 		this.size++;
 	}
 
 	public push(element: T): void {
-		const newElement: LinkedListNode<T> = new LinkedListNode(element);
+		const newNode: LinkedListNode<T> = new LinkedListNode(element);
 		if (this.isEmpty()) {
-			this._head = newElement;
-			this._tail = newElement;
+			this._head = newNode;
+			this._tail = newNode;
 		} else {
-			if (this._tail) this._tail.next = newElement;
-			this._tail = newElement;
+			if (this._tail) this._tail.next = newNode;
+			this._tail = newNode;
 		}
 		this.size++;
 	}
@@ -100,6 +131,16 @@ class LinkedList<T> {
 
 		this.size--;
 		return removedNode;
+	}
+
+	public toArray(): Array<T> {
+		const array: Array<T> = []; 
+		let currentNode = this._head; 
+		while (currentNode) {
+			array.push(currentNode.element);
+			currentNode = currentNode.next; 
+		}
+		return array;
 	}
 }
 

@@ -6,13 +6,59 @@ describe("LinkedList", () => {
 			const list = new LinkedList();
 
 			list.unshift(1);
+			// 1 -> NULL
 			expect(list.size).toBe(1);
 			expect(list.getHead().element).toBe(1);
 			expect(list.getTail().element).toBe(1);
+			expect(list.toArray()).toEqual([1]);
 
 			list.unshift(2);
+			// 2 -> 1 -> NULL
 			expect(list.size).toBe(2);
 			expect(list.getHead().element).toBe(2);
+			expect(list.getTail().element).toBe(1);
+			expect(list.toArray()).toEqual([2, 1]);
+
+			list.unshift(3);
+			// 3 -> 2 -> 1 -> NULL
+			expect(list.size).toBe(3);
+			expect(list.getHead().element).toBe(3);
+			expect(list.getTail().element).toBe(1);
+			expect(list.toArray()).toEqual([3, 2, 1]);
+
+			list.clear();
+		});
+
+		test("#insert", () => {
+			const list = new LinkedList();
+
+			list.insert(1, 0);
+			// 1 -> NULL
+			expect(list.size).toBe(1);
+			expect(list.getHead().element).toBe(1);
+			expect(list.getTail().element).toBe(1);
+			expect(list.toArray()).toEqual([1]);
+
+			list.insert(2, 1);
+			expect(list.size).toBe(2);
+			// 1 -> 2 -> NULL
+			expect(list.getHead().element).toBe(1);
+			expect(list.getTail().element).toBe(2);
+			expect(list.toArray()).toEqual([1, 2]);
+
+			list.insert(3, 1);
+			expect(list.size).toBe(3);
+			// 1 -> 3 -> 2 -> NULL
+			expect(list.getHead().element).toBe(1);
+			expect(list.getTail().element).toBe(2);
+			expect(list.toArray()).toEqual([1, 3, 2]);
+
+			list.insert(4, 2);
+			expect(list.size).toBe(4);
+			// 1 -> 3 -> 4 -> 2 -> NULL
+			expect(list.getHead().element).toBe(1);
+			expect(list.getTail().element).toBe(2);
+			expect(list.toArray()).toEqual([1, 3, 4, 2]);
 
 			list.clear();
 		});
@@ -21,13 +67,25 @@ describe("LinkedList", () => {
 			const list = new LinkedList();
 
 			list.push(3);
+			// 3 -> NULL 
 			expect(list.size).toBe(1);
 			expect(list.getHead().element).toBe(3);
 			expect(list.getTail().element).toBe(3);
+			expect(list.toArray()).toEqual([3]);
 
 			list.push(4);
+			// 3 -> 4 -> NULL
 			expect(list.size).toBe(2);
+			expect(list.getHead().element).toBe(3);
 			expect(list.getTail().element).toBe(4);
+			expect(list.toArray()).toEqual([3, 4]);
+
+			list.push(5);
+			// 3 -> 4 -> 5 -> NULL
+			expect(list.size).toBe(3);
+			expect(list.getHead().element).toBe(3);
+			expect(list.getTail().element).toBe(5);
+			expect(list.toArray()).toEqual([3, 4, 5]);
 
 			list.clear();
 		});
@@ -36,7 +94,7 @@ describe("LinkedList", () => {
 	describe("remove node", () => {
 		test("#shift", () => {
 			const list = new LinkedList();
-			list.unshift(1); 
+			list.unshift(1);
 			list.unshift(2);
 
 			expect(list.getHead().element).toBe(2);
@@ -56,7 +114,7 @@ describe("LinkedList", () => {
 
 		test("#pop", () => {
 			const list = new LinkedList();
-			list.push(1); 
+			list.push(1);
 			list.push(2);
 
 			expect(list.getTail().element).toBe(2);
