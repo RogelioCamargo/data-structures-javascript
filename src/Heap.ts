@@ -19,7 +19,7 @@ class Heap<T> {
 	}
 
 	public peek(): T {
-		this._throwErrorIfEmptyHeap;
+		this._throwErrorIfEmptyHeap();
 
 		return this._items[0];
 	}
@@ -137,6 +137,8 @@ class MinHeap<T> extends Heap<T> {
 		super();
 	}
 }
+
+module.exports = { MinHeap, MaxHeap };
 
 // HACK
 // TypeScript uses the DOM typings for the global execution environment.
