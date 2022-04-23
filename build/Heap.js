@@ -108,7 +108,3 @@ class MinHeap extends Heap {
     }
 }
 module.exports = { MinHeap, MaxHeap };
-// HACK
-// TypeScript uses the DOM typings for the global execution environment.
-// https://stackoverflow.com/questions/35758584/cannot-redeclare-block-scoped-variable
-// export {}
