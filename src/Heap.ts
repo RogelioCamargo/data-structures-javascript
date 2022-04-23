@@ -18,6 +18,10 @@ class Heap<T> {
 		return this._items.length;
 	}
 
+	get items(): Array<T> {
+		return this._items.slice();
+	}
+
 	public peek(): T {
 		this._throwErrorIfEmptyHeap();
 
@@ -31,7 +35,7 @@ class Heap<T> {
 		this._heapifyUp();
 	}
 
-	public poll(): T | undefined {
+	public poll(): T {
 		this._throwErrorIfEmptyHeap();
 
 		// store copy of root element
@@ -86,7 +90,7 @@ class Heap<T> {
 	}
 
 	private _getParentIndex(childIndex: number): number {
-		return Math.floor((childIndex - 1) / this.size);
+		return Math.floor((childIndex - 1) / 2);
 	}
 
 	private _getLeftChildIndex(parentIndex: number): number {
